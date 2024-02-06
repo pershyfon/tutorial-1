@@ -36,4 +36,9 @@ public class ProductRepository {
         productData.set(productIdx, product);
         return editedProduct;
     }
+
+    public Product delete(Product product){
+        productData.remove(product);
+        return product;
+    }
 }
