@@ -1,3 +1,6 @@
+Nama: Sabrina Aviana Dewi
+NPM: 2206030520
+
 ## Reflection 1
 Setelah mempelajari tentang clean code & secure coding, saya memahami ada beberapa praktik yang dapat diaplikasikan pada kode saya, yaitu:
 1. **Nama variabel yang padat dan jelas maknanya.** 
