@@ -6,9 +6,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.Iterator;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -41,6 +41,7 @@ class ProductRepositoryTest {
         Iterator<Product> productIterator = productRepository.findAll();
         assertFalse(productIterator.hasNext());
     }
+
     @Test
     void testFindAllIfMoreThanOneProduct() {
         Product product1 = new Product();
@@ -65,6 +66,68 @@ class ProductRepositoryTest {
     }
 
     @Test
+    void testFindById() {
+        Product product = new Product();
+        product.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        product.setProductName("Sampo Cap Bambang");
+        product.setProductQuantity(100);
+        productRepository.create(product);
+
+        Product foundProduct = productRepository.findById("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        assertEquals(product.getProductId(), foundProduct.getProductId());
+        assertEquals(product.getProductName(), foundProduct.getProductName());
+        assertEquals(product.getProductQuantity(), foundProduct.getProductQuantity());
+    }
+
+    @Test
+    void testFindByIdIfMoreThanOneProduct() {
+        Product product1 = new Product();
+        product1.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        product1.setProductName("Sampo Cap Bambang");
+        product1.setProductQuantity(100);
+        productRepository.create(product1);
+
+        Product product2 = new Product();
+        product2.setProductId("a0f9de46-90b1-437d-a0bf-d0821dde9096");
+        product2.setProductName("Sampo Cap Usep");
+        product2.setProductQuantity(50);
+        productRepository.create(product2);
+
+        Product foundProduct = productRepository.findById("a0f9de46-90b1-437d-a0bf-d0821dde9096");
+        assertEquals(product2.getProductId(), foundProduct.getProductId());
+        assertEquals(product2.getProductName(), foundProduct.getProductName());
+        assertEquals(product2.getProductQuantity(), foundProduct.getProductQuantity());
+    }
+
+    @Test
+    void testFindByIdIfDoesNotExist() {
+        Product product1 = new Product();
+        product1.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        product1.setProductName("Sampo Cap Bambang");
+        product1.setProductQuantity(100);
+        productRepository.create(product1);
+
+        Product product2 = new Product();
+        product2.setProductId("a0f9de46-90b1-437d-a0bf-d0821dde9096");
+        product2.setProductName("Sampo Cap Usep");
+        product2.setProductQuantity(50);
+        productRepository.create(product2);
+
+        String randomId = UUID.randomUUID().toString();
+
+        Product foundProduct = productRepository.findById(randomId);
+        assertNull(foundProduct);
+    }
+
+    @Test
+    void testFindByIdIfEmpty() {
+        String randomId = UUID.randomUUID().toString();
+
+        Product findById = productRepository.findById(randomId);
+        assertNull(findById);
+    }
+
+    @Test
     void testEditProduct() {
         Product product = new Product();
         product.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
@@ -78,10 +141,10 @@ class ProductRepositoryTest {
         editedProduct.setProductQuantity(50);
         productRepository.edit(editedProduct);
 
-        product = productRepository.findById("eb558e9f-1c39-460e-8860-71af6af63bd6");
-        assertEquals(editedProduct.getProductId(), product.getProductId());
-        assertEquals(editedProduct.getProductName(), product.getProductName());
-        assertEquals(editedProduct.getProductQuantity(), product.getProductQuantity());
+        Product foundProduct = productRepository.findById("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        assertEquals(editedProduct.getProductId(), foundProduct.getProductId());
+        assertEquals(editedProduct.getProductName(), foundProduct.getProductName());
+        assertEquals(editedProduct.getProductQuantity(), foundProduct.getProductQuantity());
     }
 
     @Test
