@@ -21,7 +21,7 @@ public class ProductController {
     private ProductService service;
 
     @GetMapping("/create")
-    public String createProductPage(@ModelAttribute Model model) {
+    public String createProductPage(Model model) {
         Product product = new Product();
         model.addAttribute("product", product);
         return "createProduct";
