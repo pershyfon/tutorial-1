@@ -34,7 +34,7 @@ public class ProductRepository {
         Product editedProduct = findById(productId);
         int productIdx = productData.indexOf(editedProduct);
         productData.set(productIdx, product);
-        return editedProduct;
+        return product;
     }
 
     public Product delete(Product product){
