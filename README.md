@@ -1,4 +1,26 @@
 Nama: Sabrina Aviana Dewi | NPM: 2206030520
+# Tutorial 3
+### Reflection
+1. Explain what principles you apply to your project!
+- Single Responsibility Principle (SRP)
+
+    SRP adalah aturan memisahkan file berdasarkan tanggung jawab. Maka untuk memgimplementasikannya, saya memisahkan file CarController dengan ProductController agar tiap file fokus pada tanggung jawabnya masing-masing terhadap model yang berbeda. Selain itu, saya juga mengubah set id di method createCar menjadi di constructor Car() agar pada createCar(Car car) yang mana sudah terbentuk object Car, tidak perlu set id lagi, melainkan hanya tinggal memasukkan ke list. Hal ini merupakan bentuk pemisahan tanggung jawab.
+- Open-Closed Principle (OCP)
+
+    OCP adalah aturan membuka perluasan kode namun tertutup untuk modifikasi. Saya sudah mengimplementasikannya dengan mengeset id pada constructor yang membuat class Car terbuka untuk extension, namun jika ingin perubahan pada cara set id, tidak perlu mengubah source code. Selain itu , menerapkan method update yang mengubah Car tidak per-atribut melainkan langsung mengubah objectnya juga membuat kelas CarRepository lebih terbuka pada extension, namun tidak perlu mengubah source code.
+- Liskov Substitution Principle (LSP)
+
+    LSP adalah aturan bahwa apabila suatu subclass inherit suatu superclass, maka diharapkan subclass tersebut memiliki behaviour yang serupa dengan superclassnya. Sebelumnya CarController extends ProductController, padahal sifat keduanya sangat berbeda. Meskipun CarController sepenuhnya menuruni method ProductController, namun karena model yang digunakan berbeda keduanya ini menjadi tidak berhubungan. Untuk itu, tidak diperlukan inheritance. Saya membuat CarController tidak lagi meng-extend ProductController agar yang implementasi service dapat menggantikan interface service-nya dan LSP telah terimplementasi.
+- Interface Segregation Principle (ISP)
+
+    ISP adalah aturan membagi interface menjadi interface yang lebih kecil dan spesifik terhadap suatu kebutuhan. Saya telah mengimplementasikan ISP dengan membuat dua interface berbeda untuk kebutuhan yang berbeda, yaitu CarService dan ProductService.
+- Dependency Inversions Principle (DIP)
+
+    DIP adalah aturan bahwa kode seharusnya bergantung pada kelas abstrak atau interface, bukan pada implementasi konkritannya. Saya telah mengimplementasikan DIP dengan mengubah import CarServiceImpl menjadi CarService pada CarController agar kode tidak bergantung pada kelas konkritnya. 
+2. Explain the advantages of applying SOLID principles to your project with examples. 
+3. Explain the disadvantages of not applying SOLID principles to your project with examples.
+
+
 # Tutorial 2
 ### Reflection
 1. List the code quality issue(s) that you fixed during the exercise and explain your strategy on fixing them.
