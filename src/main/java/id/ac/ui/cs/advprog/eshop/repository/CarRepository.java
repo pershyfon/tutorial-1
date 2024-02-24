@@ -31,7 +31,7 @@ public class CarRepository {
             if (car.getCarId().equals(id)) {
                 // Update the existing car with new information
                 carData.set(i, updatedCar);
-                return car;
+                return updatedCar;
             }
         }
         return null; // Handle the case when the car is not found
