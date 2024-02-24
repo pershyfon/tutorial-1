@@ -1,4 +1,37 @@
 Nama: Sabrina Aviana Dewi | NPM: 2206030520
+# Tutorial 3
+### Reflection
+1. Explain what principles you apply to your project!
+- Single Responsibility Principle (SRP)
+
+    SRP adalah aturan memisahkan file berdasarkan tanggung jawab. Maka untuk memgimplementasikannya, saya memisahkan file CarController dengan ProductController agar tiap file fokus pada tanggung jawabnya masing-masing terhadap model yang berbeda. Selain itu, saya juga mengubah set id di method createCar menjadi di constructor Car() agar pada createCar(Car car) yang mana sudah terbentuk object Car, tidak perlu set id lagi, melainkan hanya tinggal memasukkan ke list. Hal ini merupakan bentuk pemisahan tanggung jawab.
+- Open-Closed Principle (OCP)
+
+    OCP adalah aturan membuka perluasan kode namun tertutup untuk modifikasi. Saya sudah mengimplementasikannya dengan mengeset id pada constructor yang membuat class Car terbuka untuk extension, namun jika ingin perubahan pada cara set id, tidak perlu mengubah source code. Selain itu , menerapkan method update yang mengubah Car tidak per-atribut melainkan langsung mengubah objectnya juga membuat kelas CarRepository lebih terbuka pada extension, namun tidak perlu mengubah source code.
+- Liskov Substitution Principle (LSP)
+
+    LSP adalah aturan bahwa apabila suatu subclass inherit suatu superclass, maka diharapkan subclass tersebut memiliki behaviour yang serupa dengan superclassnya. Sebelumnya CarController extends ProductController, padahal sifat keduanya sangat berbeda. Meskipun CarController sepenuhnya menuruni method ProductController, namun karena model yang digunakan berbeda keduanya ini menjadi tidak berhubungan. Untuk itu, tidak diperlukan inheritance. Saya membuat CarController tidak lagi meng-extend ProductController agar yang implementasi service dapat menggantikan interface service-nya dan LSP telah terimplementasi.
+- Interface Segregation Principle (ISP)
+
+    ISP adalah aturan membagi interface menjadi interface yang lebih kecil dan spesifik terhadap suatu kebutuhan. Saya telah mengimplementasikan ISP dengan membuat dua interface berbeda untuk kebutuhan yang berbeda, yaitu CarService dan ProductService.
+- Dependency Inversions Principle (DIP)
+
+    DIP adalah aturan bahwa kode seharusnya bergantung pada kelas abstrak atau interface, bukan pada implementasi konkritannya. Saya telah mengimplementasikan DIP dengan mengubah import CarServiceImpl menjadi CarService pada CarController agar kode tidak bergantung pada kelas konkritnya. 
+2. Explain the advantages of applying SOLID principles to your project with examples. 
+
+    Prinsip SOLID dapat meningkatkan maintainability dan keterbacaan kode. Dengan memisahkan tanggung jawab ke dalam kelas-kelas yang berbeda dan mematuhi SRP, setiap kelas menjadi lebih fokus dan lebih mudah dipahami. Ini memudahkan pemeliharaan kode karena perubahan hanya perlu dilakukan di satu tempat yang sesuai dengan tanggung jawab kelas tersebut. Dengan menerapkan OCP, kita dapat menambahkan fitur baru atau mengubah perilaku tanpa mengganggu kode yang sudah ada dan mengurangi risiko terhadap efek samping. Dengan mematuhi LSP, kode lebih mudah dipahami dan digunakan oleh pengguna lain tanpa kejutan atau perilaku yang tidak diharapkan. Dengan ISP, mengurangi ketergantungan antarkelas. Dengan DIP, memudahkan pergantian implementasi tanpa harus mengubah banyak kode dan perubahan pada satu bagian kode tidak merusak pengerjaan kode lain.
+
+    Contoh: 
+    
+    - Memisahkan CarController dengan ProductController membuat masing-masing tanggung jawab tidak tercampur dan memudahkan maintainability kode jika memerlukan pekerjaan pada hanya salah satu tanggung jawab.
+    - Menggunakan interface CarService dan ProductService daripada implementasi konkritnya membuat kita tidak perlu mengubah controller lagi jika membuat implementasi baru seperti BetterCarServiceImpl.
+
+
+3. Explain the disadvantages of not applying SOLID principles to your project with examples.
+    - Jika tidak menerapkan OCP dan DIP, ketergantungan antarkelas akan membuat kode sulit untuk diuji dan sulit melakukan perubahan karena akan banyak bagian yang perlu diperhatikan untuk diganti.
+    - Jika tidak menerapkan SRP, mengurangi tingkat keterbacaan kode dan jika dilakukan perubahan/testing pada satu tanggung jawab, perlu memperhatikan kode tanggung jawab yang lain juga.
+    - Jika tidak menerapkan LSP dan ISP, meningkatkan ketergantungan tidak penting, mempersulit keterbacaan kode, dan mengurangi fleksibilitas kode terhadap perubahan dan penambahan.
+   
 # Tutorial 2
 ### Reflection
 1. List the code quality issue(s) that you fixed during the exercise and explain your strategy on fixing them.
