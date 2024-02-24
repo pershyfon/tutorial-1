@@ -18,9 +18,20 @@ Nama: Sabrina Aviana Dewi | NPM: 2206030520
 
     DIP adalah aturan bahwa kode seharusnya bergantung pada kelas abstrak atau interface, bukan pada implementasi konkritannya. Saya telah mengimplementasikan DIP dengan mengubah import CarServiceImpl menjadi CarService pada CarController agar kode tidak bergantung pada kelas konkritnya. 
 2. Explain the advantages of applying SOLID principles to your project with examples. 
+
+    Prinsip SOLID dapat meningkatkan maintainability dan keterbacaan kode. Dengan memisahkan tanggung jawab ke dalam kelas-kelas yang berbeda dan mematuhi SRP, setiap kelas menjadi lebih fokus dan lebih mudah dipahami. Ini memudahkan pemeliharaan kode karena perubahan hanya perlu dilakukan di satu tempat yang sesuai dengan tanggung jawab kelas tersebut. Dengan menerapkan OCP, kita dapat menambahkan fitur baru atau mengubah perilaku tanpa mengganggu kode yang sudah ada dan mengurangi risiko terhadap efek samping. Dengan mematuhi LSP, kode lebih mudah dipahami dan digunakan oleh pengguna lain tanpa kejutan atau perilaku yang tidak diharapkan. Dengan ISP, mengurangi ketergantungan antarkelas. Dengan DIP, memudahkan pergantian implementasi tanpa harus mengubah banyak kode dan perubahan pada satu bagian kode tidak merusak pengerjaan kode lain.
+
+    Contoh: 
+    
+    - Memisahkan CarController dengan ProductController membuat masing-masing tanggung jawab tidak tercampur dan memudahkan maintainability kode jika memerlukan pekerjaan pada hanya salah satu tanggung jawab.
+    - Menggunakan interface CarService dan ProductService daripada implementasi konkritnya membuat kita tidak perlu mengubah controller lagi jika membuat implementasi baru seperti BetterCarServiceImpl.
+
+
 3. Explain the disadvantages of not applying SOLID principles to your project with examples.
-
-
+    - Jika tidak menerapkan OCP dan DIP, ketergantungan antarkelas akan membuat kode sulit untuk diuji dan sulit melakukan perubahan karena akan banyak bagian yang perlu diperhatikan untuk diganti.
+    - Jika tidak menerapkan SRP, mengurangi tingkat keterbacaan kode dan jika dilakukan perubahan/testing pada satu tanggung jawab, perlu memperhatikan kode tanggung jawab yang lain juga.
+    - Jika tidak menerapkan LSP dan ISP, meningkatkan ketergantungan tidak penting, mempersulit keterbacaan kode, dan mengurangi fleksibilitas kode terhadap perubahan dan penambahan.
+   
 # Tutorial 2
 ### Reflection
 1. List the code quality issue(s) that you fixed during the exercise and explain your strategy on fixing them.
