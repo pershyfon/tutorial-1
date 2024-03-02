@@ -36,15 +36,15 @@ class OrderTest {
     @Test
     void testCreateOrderDefaultStatus() {
         Order order = new Order("13652556-012a-4c07-b546-54eb1396d79b",
-                this.products, 1798560000L, "Safira Sudrajat");
+                this.products, 1708560000L, "Safira Sudrajat");
 
         assertSame(this.products, order.getProducts());
         assertEquals(2, order.getProducts().size());
-        assertEquals("Sampo Cap Bambang", order.getProducts.get(0).getProductName());
+        assertEquals("Sampo Cap Bambang", order.getProducts().get(0).getProductName());
         assertEquals("Sabun Cap Usep", order.getProducts().get(1).getProductName());
 
         assertEquals("13652556-012a-4c07-b546-54eb1396d79b", order.getId());
-        assertEquals(2, order.getProduts().size());
+        assertEquals(2, order.getProducts().size());
         assertEquals(1708560000L, order.getOrderTime());
         assertEquals("Safira Sudrajat", order.getAuthor());
         assertEquals("WAITING_PAYMENT", order.getStatus());
