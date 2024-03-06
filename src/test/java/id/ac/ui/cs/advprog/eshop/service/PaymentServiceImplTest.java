@@ -1,25 +1,22 @@
 package id.ac.ui.cs.advprog.eshop.service;
 
+import id.ac.ui.cs.advprog.eshop.enums.OrderStatus;
 import id.ac.ui.cs.advprog.eshop.enums.PaymentMethod;
 import id.ac.ui.cs.advprog.eshop.model.Order;
 import id.ac.ui.cs.advprog.eshop.model.Payment;
 import id.ac.ui.cs.advprog.eshop.model.Product;
 import id.ac.ui.cs.advprog.eshop.repository.PaymentRepository;
-import id.ac.ui.cs.advprog.eshop.enums.OrderStatus;
-
-import java.util.*;
-import java.util.UUID;
-
-import static org.mockito.Mockito.*;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.*;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class PaymentServiceImplTest {
@@ -127,8 +124,11 @@ class PaymentServiceImplTest {
 
     @Test
     void testFindByIdIfIdNotFound() {
-        doReturn(null).when(paymentRepository).findById("ab558e9f-2c39-460e-8760-71af6af63gh6");
-        assertNull(paymentService.getPayment("ab558e9f-2c39-460e-8760-71af6af63gh6"));
+        String paymentId = "ab558e9f-2c39-460e-8760-71af6af63gh6";
+        when(paymentRepository.findById(paymentId)).thenReturn(null);
+        assertThrows(NoSuchElementException.class, () -> {
+            paymentService.getPayment(paymentId);
+        });
     }
 
     @Test
