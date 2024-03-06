@@ -1,6 +1,7 @@
 package id.ac.ui.cs.advprog.eshop.model;
 
 import id.ac.ui.cs.advprog.eshop.enums.OrderStatus;
+import id.ac.ui.cs.advprog.eshop.enums.PaymentMethod;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -9,9 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 class PaymentTest {
     private List<Product> products;
@@ -68,7 +67,7 @@ class PaymentTest {
         Payment voucherPayment = new Payment("1994cddb-6f3b-40ca-aed1-eba78db32295", "BANK_TRANSFER", null, paymentData);
         assertEquals("REJECTED", voucherPayment.getStatus());
 
-        Payment bankTransferPayment = new Payment("1994cddb-6f3b-40ca-aed1-eba78db32295", "CASH_ON_DELIVERY", null, paymentData);
+        Payment bankTransferPayment = new Payment("1994cddb-6f3b-40ca-aed1-eba78db32295", "BANK_TRANSFER", null, paymentData);
         assertEquals("REJECTED", bankTransferPayment.getStatus());
     }
 
@@ -109,6 +108,28 @@ class PaymentTest {
         assertEquals("REJECTED", payment.getStatus());
     }
 
+    @Test
+    public void testUpdateStatusWithValidVoucherCode() {
+        Map<String, String> paymentData = new HashMap<>();
+        paymentData.put("voucherCode", "ESHOP1234ABC5678");
+        Payment payment = new Payment("1994cddb-6f3b-40ca-aed1-eba78db32295", PaymentMethod.VOUCHER_CODE.getValue(), null, paymentData);
+        payment.updateStatus();
+
+        assertEquals("SUCCESS", payment.getStatus());
+    }
+
+    @Test
+    public void testUpdateStatusWithMissingVoucherCode() {
+        Map<String, String> paymentData = new HashMap<>();
+        Payment payment = new Payment("1994cddb-6f3b-40ca-aed1-eba78db32295", PaymentMethod.VOUCHER_CODE.getValue(), null, paymentData);;
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            payment.updateStatus();
+        });
+
+        assertEquals("Invalid payment data for current method", exception.getMessage());
+    }
+
     // Bank Transfer
     @Test
     void testSuccessValidBankTransfer() {
@@ -139,4 +160,27 @@ class PaymentTest {
         assertEquals("REJECTED", payment.getStatus());
     }
 
+    @Test
+    public void testUpdateStatusWithValidBankTransfer() {
+        Map<String, String> paymentData = new HashMap<>();
+        paymentData.put("bankName", "ABank");
+        paymentData.put("referenceCode", "E3550123");
+        Payment payment = new Payment("1994cddb-6f3b-40ca-aed1-eba78db32295", PaymentMethod.BANK_TRANSFER.getValue(), null, paymentData);
+
+        payment.updateStatus();
+
+        assertEquals("SUCCESS", payment.getStatus());
+    }
+
+    @Test
+    public void testUpdateStatusWithMissingBankTransferData() {
+        Map<String, String> paymentData = new HashMap<>();
+        Payment payment = new Payment("1994cddb-6f3b-40ca-aed1-eba78db32295", PaymentMethod.BANK_TRANSFER.getValue(), null, paymentData);
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            payment.updateStatus();
+        });
+
+        assertEquals("Invalid payment data for current method", exception.getMessage());
+    }
 }
