@@ -16,21 +16,39 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public Payment addPayment(String paymentId, Order order, String method, Map<String, String> paymentData) {
+        if (paymentRepository.findById(paymentId) == null){
+            Payment payment = new Payment(paymentId, method, order, paymentData);
+            paymentRepository.save(payment);
+            return payment;
+        }
         return null;
     }
 
     @Override
     public Payment setStatus(Payment payment, String status) {
+        Order currentOrder = payment.getOrder();
+        if (status.equals("SUCCESS")) {
+            currentOrder.setStatus(OrderStatus.SUCCESS.getValue());
+        } else if (status.equals("REJECTED")) {
+            currentOrder.setStatus(OrderStatus.FAILED.getValue());
+        } else {
+            throw new IllegalArgumentException("Invalid status payment");
+        }
         return payment;
     }
 
     @Override
     public Payment getPayment(String paymentId) {
-        return null;
+        Payment payment = paymentRepository.findById(paymentId);
+        if (payment != null) {
+            return payment;
+        } else {
+            throw new NoSuchElementException("Id not found");
+        }
     }
 
     @Override
     public List<Payment> getAllPayments() {
-        return null;
+        return paymentRepository.getAllPayment();
     }
 }
