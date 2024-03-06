@@ -1,4 +1,16 @@
 Nama: Sabrina Aviana Dewi | NPM: 2206030520
+# Tutorial 4
+### Reflection
+1. Reflect based on Percival (2017) proposed self-reflective questions (in “Principles and Best Practice of Testing” submodule, chapter “Evaluating Your Testing Objectives”), whether this TDD flow is useful enough for you or not. If not, explain things that you need to do next time you make more tests.
+<br> Menurut saya TDD lumayan membantu karena kita jadi lebih tau apa saja yang harus kita tambahkan ke dalam kode. Kode juga jadi lebih clean dan pengerjaan lebih cepat. Proses debugging juga lebih mudah karena dari test bisa diketahui salahnya di sebelah mana. Namun, karena saya belum terbiasa jadi agak sulit mengubah dari requirements ke bentuk test. Di tengah-tengah pengerjaan implementasi test bisa saja baru terpikirkan test lain. Kekurangan lainnya, masih ada test yang belum ter-cover sehingga code coverage juga belum sempurna.
+2. You have created unit tests in Tutorial. Now reflect whether your tests have successfully followed F.I.R.S.T. principle or not. If not, explain things that you need to do the next time you create more tests.
+
+    - Fast <br> Test sudah dibagi ke bagian-bagian kecil dan 1 test kurang lebih menjalankan 1 assert sehingga *running* test akan menjadi cepat.     
+    - Isolated/Independent <br> Setiap test tidak bergantung pada test lainnya karena setiap test punya setUp dan data masing-masing. 
+    - Repeatable <br> Sudah terpenuhi karena sudah isolated. 
+    - Self-Validating <br> Validasi test yang saya buat sudah strict, mengandung assertions, dan tidak menggunakan print ketika ada error. 
+    - Thorough/Timely <br> Pada tutorial sudah dibuat happy dan unhappy test sehingga kriteria ini telah terpenuhi.
+
 # Tutorial 3
 ### Reflection
 1. Explain what principles you apply to your project!
