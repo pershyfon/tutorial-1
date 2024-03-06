@@ -65,13 +65,11 @@ class PaymentTest {
     void testRejectedPaymentEmptyData() {
         Map<String, String> paymentData = new HashMap<>();
 
-        assertThrows(IllegalArgumentException.class, () -> {
-            Payment payment = new Payment("1994cddb-6f3b-40ca-aed1-eba78db32295", "VOUCHER_CODE", this.orders.getFirst(), paymentData);
-        });
+        Payment voucherPayment = new Payment("1994cddb-6f3b-40ca-aed1-eba78db32295", "BANK_TRANSFER", null, paymentData);
+        assertEquals("REJECTED", voucherPayment.getStatus());
 
-        assertThrows(IllegalArgumentException.class, () -> {
-            Payment payment = new Payment("1994cddb-6f3b-40ca-aed1-eba78db32295", "BANK_TRANSFER", this.orders.getFirst(), paymentData);
-        });
+        Payment bankTransferPayment = new Payment("1994cddb-6f3b-40ca-aed1-eba78db32295", "CASH_ON_DELIVERY", null, paymentData);
+        assertEquals("REJECTED", bankTransferPayment.getStatus());
     }
 
     // Voucher Code
@@ -111,7 +109,7 @@ class PaymentTest {
         assertEquals("REJECTED", payment.getStatus());
     }
 
-    // Cash on Delivery
+    // Bank Transfer
     @Test
     void testSuccessValidBankTransfer() {
         Map<String, String> paymentData = new HashMap<>();
